@@ -1,0 +1,19 @@
+name: find-service
+on: [push, workflow_dispatch]
+
+jobs:
+  find:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: no-bc
+
+      - name: Where is the transfer memory message?
+        run: |
+          echo "=== kernel table message ==="
+          grep -rn "outside the kernel table" dm | head -20
+          echo "=== CreateTransferMemory ==="
+          grep -rn "CreateTransferMemory" dm | head -30
+          echo "=== online-type services ==="
+          grep -rnIl -E "nifm|\"nsd\"|\"bsd:|\"ssl\"|nim:|friend:u|\"news\"" dm | head -40
