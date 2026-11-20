@@ -9,11 +9,11 @@ jobs:
         with:
           ref: no-bc
 
-      - name: Where is the transfer memory message?
+      - name: Show the applet/capture code
         run: |
-          echo "=== kernel table message ==="
-          grep -rn "outside the kernel table" dm | head -20
-          echo "=== CreateTransferMemory ==="
-          grep -rn "CreateTransferMemory" dm | head -30
-          echo "=== online-type services ==="
-          grep -rnIl -E "nifm|\"nsd\"|\"bsd:|\"ssl\"|nim:|friend:u|\"news\"" dm | head -40
+          echo "=== hle_oe.c lines 290-380 ==="
+          sed -n 290,380p dm/host/hle_oe.c
+          echo "=== capture / album / grc mentions ==="
+          grep -rn -i -E "capture|album|grc|applet proxy" dm/host/hle_oe.c | head -40
+          echo "=== hle_offline.c header ==="
+          sed -n 1,60p dm/host/hle_offline.c
