@@ -9,11 +9,16 @@ jobs:
         with:
           ref: no-bc
 
-      - name: Show the applet/capture code
+      - name: Debugging docs and tools
         run: |
-          echo "=== hle_oe.c lines 290-380 ==="
-          sed -n 290,380p dm/host/hle_oe.c
-          echo "=== capture / album / grc mentions ==="
-          grep -rn -i -E "capture|album|grc|applet proxy" dm/host/hle_oe.c | head -40
-          echo "=== hle_offline.c header ==="
-          sed -n 1,60p dm/host/hle_offline.c
+          echo "=== docs/agents/README.md ==="
+          sed -n 1,150p docs/agents/README.md
+          echo "=== scripts ==="
+          ls scripts
+          echo "=== symbolizing tools ==="
+          grep -rIn -i -E "symboli[sz]e|addr2sym|sdk\+0x" scripts docs | head -40
+          echo "=== Splatoon 2 profile ==="
+          ls -la dm/games/0100F8F0000A2000 2>&1
+          sed -n 1,80p dm/games/0100F8F0000A2000/README.md 2>&1
+          echo "=== HLE_FORCE macro ==="
+          grep -n -B2 -A10 "define HLE_FORCE" dm/host/hle.h
