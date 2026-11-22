@@ -76,7 +76,7 @@ static void motion_start(void) {
     const char *mo = getenv("DM_MOTION"); BOOL live = !mo || atoi(mo);
     const char *pm = getenv("DM_PHONE_MOTION"); if (pm && !strcmp(pm, "0")) live = NO;
     int flip = dm_motion_flip_parse(getenv("DM_MOTION_FLIP"));   // axis sign correction, see dm_motion.h
-    CMAttitudeReferenceFrame frame = ([CMMotionManager availableAttitudeReferenceFrames] & CMAttitudeReferenceFrameXArbitraryCorrectedZVertical)
+        CMAttitudeReferenceFrame frame = (getenv("DM_MOTION_MAG") && ([CMMotionManager availableAttitudeReferenceFrames] & CMAttitudeReferenceFrameXArbitraryCorrectedZVertical))
         ? CMAttitudeReferenceFrameXArbitraryCorrectedZVertical : CMAttitudeReferenceFrameXArbitraryZVertical;
     LOG("front end: %s (axis flip %s, reference frame %s); shaking the phone shakes the controller (threshold %.2f G)", live ? "motion controls: the phone is the controller's six-axis sensor (hold both sticks 1 s to recenter)" : "motion controls off", dm_motion_flip_name(flip), frame == CMAttitudeReferenceFrameXArbitraryCorrectedZVertical ? "xArbitraryCorrectedZVertical" : "xArbitraryZVertical", thr);
     g_motion.deviceMotionUpdateInterval = 1.0 / 120;
