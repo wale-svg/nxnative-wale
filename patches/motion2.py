@@ -23,7 +23,7 @@ r'''        if (level) {
             if (needLevel) {
                 double an = sqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2]);
                 if (an > 0.5) {
-                                        double tl = getenv("DM_MOTION_TILT") ? atof(getenv("DM_MOTION_TILT")) * M_PI / 180 : 0, tx = 0, ty = -sin(tl), tz = -cos(tl);   // the pose it is turned into: flat (0 degrees), or tilted back by this much
+                    double tl = getenv("DM_MOTION_TILT") ? atof(getenv("DM_MOTION_TILT")) * M_PI / 180 : 0, tx = 0, ty = -sin(tl), tz = -cos(tl);   // the pose it is turned into: flat (0 degrees), or tilted back by this much
                     double gx = a[0] / an, gy = a[1] / an, gz = a[2] / an, vx = gy * tz - gz * ty, vy = gz * tx - gx * tz, vz = gx * ty - gy * tx, c = gx * tx + gy * ty + gz * tz;
 
                     if (c > -0.99) {
